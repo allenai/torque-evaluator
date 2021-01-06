@@ -30,8 +30,11 @@ Then run `eval.py` as shown in the `test.sh` script.
 
 The file `predictions_dummy.json` is a valid dummy submission file for the
 [TORQUE leaderboard](https://leaderboard.allenai.org/torque). It contains
-predictions for 4468 questions. If you submit it, you'll get get a dummy score
-of XXX.
+predictions for 4468 questions. If you submit it, you'll get this dummy score:
+
+* F1: 0.7562 (Macro F1 of the F1 scores of each individual questions)
+* EM: 0.5076 (Exact Match)
+* C: 0.3691 (Consistency)
 
 To submit your own predictions to the Leaderboard, produce a JSON file like
 `predictions_dummy.json` with your predictions, and submit that.
