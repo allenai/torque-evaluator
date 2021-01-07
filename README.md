@@ -1,26 +1,40 @@
-# TORQUE-evaluator
+# TORQUE evaluator
 
-This repo hosts the evaluator for [TORQUE](https://allennlp.org/torque.html). The gold json and prediction json are both in the correct format, but we only put 3 QA pairs into them (thus the name "small").
+This repo hosts the evaluator for 
+[TORQUE leaderboard](https://leaderboard.allenai.org/torque). (You can [read
+about TORQUE on the AllenNLP website](https://allennlp.org/torque).)
 
-```
-python eval.py --labels_file test_gold_small.json --preds_file test_preds_1e-5_7_small.json
-```
+This evaluator scores predictions provided in JSON format, and produces a file
+with the scores in JSON format.
 
-The expected output should be
-```
-====Input Arguments====
-{
-  "labels_file": "test_gold_small.json",
-  "metrics_output_file": "metrics.json",
-  "preds_file": "test_preds_1e-5_7_small.json"
-}
-=======================
-the current eval positive class Micro F1 (Agg) is: 0.8889
-the current eval positive class Macro F1 (Relaxed) is: 0.6667
-the current eval positive class Macro F1 (Agg) is: 0.6667
-the current eval exact match ratio (Relaxed) is: 0.6667
-2 Clusters
-the current eval clustered EM (Agg) is: 0.5000
-the current eval clustered EM (Relaxed) is: 0.5000
-the current eval clusrered F1 (max>=0.8) is: 0.5000
-```
+# Testing the evaluator
+
+Run `test.sh` to build and test the evaluator.
+
+The test will score the prediction file `predictions_small.json` against the
+answers in `gold_small.json`. If everything is okay, then the test will pass.
+
+(These gold and predictions JSON files are both representative of the real gold
+and prediction files, but we put 3 QA pairs into them, thus the name "small".)
+
+# Running the evaluator locally
+
+You can follow the steps in test.sh to build and run the evaluator yourself
+using Docker.
+
+If you want to run the evaluator outside of Docker, look in the `evaluator`
+directory and first install the dependencies specified in `requirements.txt`.
+Then run `eval.py` as shown in the `test.sh` script.
+
+# Submitting to the Leaderboard
+
+The file `predictions_dummy.json` is a valid dummy submission file for the
+[TORQUE leaderboard](https://leaderboard.allenai.org/torque). It contains
+predictions for 4468 questions. If you submit it, you'll get this dummy score:
+
+* F1: 0.7562 (Macro F1 of the F1 scores of each individual questions)
+* EM: 0.5076 (Exact Match)
+* C: 0.3691 (Consistency)
+
+To submit your own predictions to the Leaderboard, produce a JSON file like
+`predictions_dummy.json` with your predictions, and submit that.
